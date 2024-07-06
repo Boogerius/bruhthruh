@@ -13,8 +13,8 @@ router.get("/users", async (req, res) => {
 
 // Get all characters
 router.get("/characters", async (req, res) => {
-	const characters = await User.find()
-	res.send(res.json({characters: characters}))
+	const characters = await Character.find()
+	res.send({characters: characters})
 })
 
 // const schema = mongoose.Schema({
@@ -32,7 +32,7 @@ router.get("/characters", async (req, res) => {
 // })
 // Create new character
 router.post("/origin", async (req, res) => {
-	console.log('character submission: ', res.body)
+	console.log('character submission: ', req.body)
 	const character = new Character({
 		name: req.body.name,
 		animal: req.body.animal,
@@ -50,6 +50,7 @@ router.post("/origin", async (req, res) => {
 	})
 	await character.save()
 	res.send(character)
+	console.log(character)
 })
 
 export default router
