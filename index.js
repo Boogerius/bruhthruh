@@ -1,26 +1,19 @@
-// import mongoose from "mongoose";
-import database from "./src/database.js"
-//import cors from "cors";
-import app from "./app.js";
+// const express = require("express")
+// const mongoose = require("mongoose")
+// const routes = require("./routes") 
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import router from "./src/routes.js"
 
-// app.use(cors())
+mongoose
+	.connect("mongodb://localhost:27017/bruhdb",)
+	.then(() => {
+		const app = express()
+		app.use(cors())
+		app.use("/api", router) // new
 
-(async () => {
-    try {
-        await database.connect()
-        console.log("Connected to BruhDB")
-        //database.moo()
-
-        app.get('/', function (req, res) {
-            res.json({ msg: "Commlink Online" });
-        });
-         
-          
-        app.listen(9001, () => {
-            console.log(`Example app listening on port 9001`)
-        })
-    } catch (error) {
-        console.error("error: ", error)
-        throw error
-    }
-})()
+		app.listen(9001, () => {
+			console.log("Server has started!")
+		})
+	})
